@@ -1,0 +1,10 @@
+.dialog{
+    display: grid;
+    margin: 0px auto;
+    grid-template-areas:
+        "u m";
+    grid-template-columns: 3fr 10fr;
+    }
+.textarea{
+    margin: 20px 0px 0px 50px ;
+}
