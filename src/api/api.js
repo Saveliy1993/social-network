@@ -1,11 +1,10 @@
 import * as axios from "axios"
-import LoginPage from "../components/LoginPage/Login"
 
 
 const instance = axios.create({
     withCredentials: true,
-    headers: { 'API-KEY': 'bee480e3-0f98-4392-8f63-0928cd74c901' },
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
+    headers: { 'API-KEY': 'bee480e3-0f98-4392-8f63-0928cd74c901' },
 })
 
 export const usersAPI = {
@@ -48,18 +47,12 @@ export const profileAPI = {
 }
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`).then(response => {
-            return response.data
-        })
+        return instance.get(`auth/me`)
     },
     login(email, password, rememberMe = false) {
-        return instance.post(`auth/login`, { email, password, rememberMe }).then(response => {
-            return response.data
-        })
+        return instance.post(`auth/login`, { email, password, rememberMe })
     },
     logout() {
-        return instance.delete(`auth/login`).then(response => {
-            return response.data
-        })
+        return instance.delete(`auth/login`)
     }
 }

@@ -11,6 +11,12 @@ const LoginForm = (props) => {
         email: yup.string().email('Enter correct email').required('Email is required'),
         password: yup.string().typeError('Need string').required('Password is required')
     })
+    const signUp = (email) => new Promise((resolve, reject) => {
+        if (email === '1@1.ru') {
+            reject(new Error('Allo?'))
+        }
+        resolve(true)
+    })
     return (
         <Formik
             initialValues={{
@@ -19,7 +25,18 @@ const LoginForm = (props) => {
                 rememberMe: false,
             }}
             validateOnBlur
-            onSubmit={(values) => { props.login(values.email, values.password, values.rememberMe) }}
+            onSubmit={(values, actions) => {
+                signUp({ email: values.email })
+                    .then(()=>{
+                        { props.login(values.email, values.password, values.rememberMe) }
+                    })
+                    .catch(errors=>{
+                        actions.setFieldError('general',errors.message)
+                    })
+                    .finally(()=>{
+                        actions.setSubmitting(false)
+                    })
+            }}
             validationSchema={validationSchema}
         >
             {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
@@ -57,6 +74,7 @@ const LoginForm = (props) => {
                         onClick={handleSubmit}
                         type={'submit'}
                     >Enter</button>
+                    <label >{errors.general}</label>
 
                 </Form>
             )}

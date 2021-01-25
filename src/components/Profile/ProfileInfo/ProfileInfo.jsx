@@ -1,6 +1,6 @@
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css'
-import ProfileStatus from './ProfileStatus'
+import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 import userPhoto from '../../../assets/images/user.jpg'
 
 const ProfileInfo = (props) => {
@@ -12,7 +12,7 @@ const ProfileInfo = (props) => {
             {/*<img src='https://www.planetware.com/photos-large/VIE/vietnam-danang-beach.jpg'></img>*/}
             <div className={s.content}>
                 <div>
-                    <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
+                    <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status}/>
                 </div>
                 <div className={s.item}>
                     <img src={props.profile.photos.large !=null ? props.profile.photos.large : userPhoto} />
