@@ -3,19 +3,21 @@ import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import News from './components/News/News';
-import Friends from './components/Friends/Friends'
-import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/LoginPage/Login';
 import React from 'react'
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 import { initializeApp } from './redux/AppReducer';
-
+import { BrowserRouter } from 'react-router-dom';
+import store from './redux/reduxStore'
+import { Provider } from 'react-redux'
+const Music = React.lazy(() => import('./components/Music/Music'));
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
+const News = React.lazy(() => import('./components/News/News'));
+const Friends = React.lazy(() => import('./components/Friends/Friends'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const LoginPage = React.lazy(() => import('./components/LoginPage/Login'));
 
 
 class App extends React.Component {
@@ -33,12 +35,14 @@ class App extends React.Component {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'><DialogsContainer /></Route>
                     <Route path='/profile/:userId?'><ProfileContainer /></Route>
-                    <Route path='/music'><Music /></Route>
-                    <Route path='/news'><News /></Route>
-                    <Route path='/settings'><Settings /></Route>
-                    <Route path='/friends'><Friends /></Route>
-                    <Route path='/users'><UsersContainer /></Route>
-                    <Route path='/login'><LoginPage /></Route>
+                    <React.Suspense fallback={<Preloader />}>
+                        <Route path='/music'><Music /></Route>
+                        <Route path='/news'><News /></Route>
+                        <Route path='/settings'><Settings /></Route>
+                        <Route path='/friends'><Friends /></Route>
+                        <Route path='/users'><UsersContainer /></Route>
+                        <Route path='/login'><LoginPage /></Route>
+                    </React.Suspense>
                 </div>
             </div>
         )
@@ -51,6 +55,17 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+let AppContainer = compose(
     connect(mapStateToProps, { initializeApp })
         (App))
+
+const MainApp = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <React.StrictMode>
+                <AppContainer />
+            </React.StrictMode>
+        </Provider>
+    </BrowserRouter>
+}
+export default MainApp

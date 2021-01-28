@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom'
 import Paginator from '../common/Paginator/Paginator'
 
 
-const User = ({ totalUsersCount, pageSize, currentPage, onPageChanged, user, ...props }) => {
+const User = ({ portionSize, totalItemsCount, pageSize, currentPage, onPageChanged, user, ...props }) => {
     return (
         <div>
-            <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
+            <Paginator totalItemsCount={totalItemsCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
             <div >
                 <div>
                     {user.followed
