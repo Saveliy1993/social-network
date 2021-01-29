@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Settings/Settings.jsx"],"names":["Settings","props"],"mappings":"0HAOeA,UANA,SAACC,GACZ,OACI","file":"static/js/8.cce9b47a.chunk.js","sourcesContent":["\r\nconst Settings=(props)=>{\r\n    return(\r\n        <div>Settings</div>\r\n    )\r\n}\r\n\r\nexport default Settings;"],"sourceRoot":""}

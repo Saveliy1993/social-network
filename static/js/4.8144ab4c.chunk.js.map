@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Friends/Friends.jsx"],"names":["Friends","props"],"mappings":"0HAOeA,UAPD,SAACC,GACX,OACI","file":"static/js/4.8144ab4c.chunk.js","sourcesContent":["const Friends=(props)=>{\r\n    return(\r\n        <div>\r\n            Friends\r\n        </div>\r\n    )\r\n}\r\nexport default Friends"],"sourceRoot":""}
