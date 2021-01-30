@@ -7,6 +7,11 @@ const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader />
     }
+    const onMainPhotoSelected=(event)=>{
+        if(event.target.files.length){
+            props.savePhoto(event.target.files[0])
+        }
+    }
     return (
         <div>
             {/*<img src='https://www.planetware.com/photos-large/VIE/vietnam-danang-beach.jpg'></img>*/}
@@ -16,6 +21,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div className={s.item}>
                     <img src={props.profile.photos.large !=null ? props.profile.photos.large : userPhoto} />
+                    {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 </div>
                 <h4>
                     {props.profile.fullName}

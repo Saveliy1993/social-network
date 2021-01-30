@@ -24,15 +24,13 @@ export const usersAPI = {
         })
     },
     getProfile(userId) {
-        console.warn('USE profileAPI')
-        return profileAPI.getProfile(userId)
-    },
+        console.warn('USE PROFILEAPI')
+        return profileAPI.getProfile(userId);
+    }
 }
 export const profileAPI = {
-    getProfile(userId = 13827) {
-        return instance.get(`profile/` + userId).then(response => {
-            return response.data
-        })
+    getProfile(userId) {
+        return instance.get(`profile/` + userId);
     },
     getStatus(userId) {
         return instance.get(`profile/status/` + userId).then(response => {
@@ -44,6 +42,12 @@ export const profileAPI = {
             return response.data
         })
     },
+    savePhoto(photoFile) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put(`profile/photo`, formData)
+    },
+
 }
 export const authAPI = {
     me() {
