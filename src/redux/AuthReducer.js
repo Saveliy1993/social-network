@@ -23,9 +23,10 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
+// ACTION CREATERS
 export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
-
+// THUNK CREATERS
 export const getAuthUserData = () => async (dispatch) => {
     let response = await authAPI.me();
 
@@ -34,17 +35,13 @@ export const getAuthUserData = () => async (dispatch) => {
         dispatch(setAuthUserData(id, email, login, true));
     }
 }
-export const login = (email, password, rememberMe) => {
-    return async (dispatch) => {
-        let responce = await authAPI.login(email, password, rememberMe)
-        if (responce.data.resultCode === 0) {
-            dispatch(getAuthUserData())
-        } else {
-            let message = responce.data.message.length > 0 ? responce.data.message[0] : 'Some error'
-            dispatch(getAuthUserData({ _error: message }))
-        }
+export const login = (email, password, rememberMe) => async (dispatch) => {
+    let responce = await authAPI.login(email, password, rememberMe)
+    if (responce.data.resultCode === 0) {
+        dispatch(getAuthUserData())
     }
 }
+
 export const logout = () => {
     return async (dispatch) => {
         let responce = await authAPI.logout()

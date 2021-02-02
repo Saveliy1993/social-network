@@ -1,7 +1,6 @@
 import { Route } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import React from 'react'
@@ -30,8 +29,9 @@ class App extends React.Component {
         }
         return (
             <div className='app-wrapper'>
-                <HeaderContainer />
-                <Navbar />
+                <div className='app-wrapper-header'>
+                    <HeaderContainer />
+                </div >
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'><DialogsContainer /></Route>
                     <Route path='/profile/:userId?'><ProfileContainer /></Route>

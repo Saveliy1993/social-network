@@ -19,21 +19,17 @@ const LoginForm = (props) => {
     })
     return (
         <Formik
-            initialValues={{
-                email: '',
-                password: '',
-                rememberMe: false,
-            }}
+            initialValues={{ email: '', password: '', rememberMe: false, }}
             validateOnBlur
             onSubmit={(values, actions) => {
                 signUp({ email: values.email })
-                    .then(()=>{
+                    .then(() => {
                         { props.login(values.email, values.password, values.rememberMe) }
                     })
-                    .catch(errors=>{
-                        actions.setFieldError('general',errors.message)
+                    .catch(errors => {
+                        actions.setFieldError('general', errors.message)
                     })
-                    .finally(()=>{
+                    .finally(() => {
                         actions.setSubmitting(false)
                     })
             }}

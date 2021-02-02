@@ -1,18 +1,38 @@
 .header {
-  grid-area: h;
-  background-color: greenyellow;
+  display: grid;
+  grid-template-areas: "label navbar login";
+  grid-template-columns: 2fr 8fr 2fr;
 }
-.header img {
-  width: 50px;
+.app-wrapper-header {
+  grid-area: label;
+  background-color: rgb(131, 107, 107);
 }
-.loginBlock{
-  float: right;
+.app-wrapper-header {
+  grid-area: navbar;
+  background-color: rgb(131, 107, 107);
+}
+.loginBlock {
+  grid-area: login;
   padding: 15px;
   padding-right: 40px;
   color: white;
   font-size: 20px;
 }
-.loginBlock a{
+.loginBlock a {
   text-decoration: none;
   color: black;
+}
+.header img {
+  width: 50px;
+}
+.item a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding-right: 30px;
+}
+
+.item a.activeLink {
+  color: gold;
+  font-size: 23px;
 }

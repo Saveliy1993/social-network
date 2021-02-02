@@ -1,14 +1,18 @@
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css'
-import ProfileStatusWithHooks from './ProfileStatusWithHooks'
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
 import userPhoto from '../../../assets/images/user.jpg'
+import { useState } from 'react';
+import ProfileDataForm from './ProfileData/ProfileDataForm';
+import ProfileData from './ProfileData/ProfileData'
 
 const ProfileInfo = (props) => {
+    let [editMode, setEditMode] = useState(false)
     if (!props.profile) {
         return <Preloader />
     }
-    const onMainPhotoSelected=(event)=>{
-        if(event.target.files.length){
+    const onMainPhotoSelected = (event) => {
+        if (event.target.files.length) {
             props.savePhoto(event.target.files[0])
         }
     }
@@ -17,32 +21,18 @@ const ProfileInfo = (props) => {
             {/*<img src='https://www.planetware.com/photos-large/VIE/vietnam-danang-beach.jpg'></img>*/}
             <div className={s.content}>
                 <div>
-                    <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status}/>
+                    <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status} />
                 </div>
                 <div className={s.item}>
-                    <img src={props.profile.photos.large !=null ? props.profile.photos.large : userPhoto} />
-                    {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+                    <img src={props.profile.photos.large != null ? props.profile.photos.large : userPhoto} />
+                    {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
                 </div>
-                <h4>
-                    {props.profile.fullName}
-                </h4>
-                <div className={s.item}>
-                    About me: {props.profile.aboutMe}
-                </div>
-                <div>
-                    {props.profile.lookingForAJob}
-                </div>
-                    Work: {props.profile.lookingForAJobDescription}
-                <div>
-                </div>
-                <div>
-
-                </div>
-                <div>
-
-                </div>
+                {editMode
+                    ? <ProfileDataForm {...props}  setEditMode={setEditMode} />
+                    : <ProfileData {...props} goEditMode={()=>setEditMode(true)}/>}
             </div>
         </div>
     )
 }
+
 export default ProfileInfo;
