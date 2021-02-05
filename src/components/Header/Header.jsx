@@ -1,12 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import s from './Header.module.css'
+import logo from '../../assets/images/logo.png'
 
 
 const Header = (props) => {
     return (
         <header className={s.header}>
             <div className={s.label}>
-                <img src='https://www.freelogodesign.org/Content/img/logo-samples/theater.png'></img>
+                <img src={logo}></img>
+                <div className={s.logotext}>Social Network For Developers</div>
             </div>
             <div className={s.navbar}>
                 <div className={s.item}>
@@ -16,7 +18,7 @@ const Header = (props) => {
                     <NavLink to='/news' activeClassName={s.activeLink}>News</NavLink>
                     <NavLink to='/music' activeClassName={s.activeLink}>Music</NavLink>
                     <NavLink to='/settings' activeClassName={s.activeLink}>Settings</NavLink>
-                    <NavLink to='/friends' activeClassName={s.activeLink}> Friends  </NavLink>
+                    <NavLink to='/friends' activeClassName={s.activeLink} > Friends  </NavLink>
                 </div>
             </div>
             <div className={s.loginBlock}>

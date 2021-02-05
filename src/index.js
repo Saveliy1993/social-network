@@ -1,17 +1,11 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
 import MainApp from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './redux/reduxStore'
-import { Provider } from 'react-redux'
 
 
-ReactDOM.render(
-    <MainApp />
-    , document.getElementById('root')
-);
+ReactDOM.render(<MainApp />, document.getElementById('root'));
 
 
 

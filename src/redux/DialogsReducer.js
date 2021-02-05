@@ -1,6 +1,6 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-
+// our globalstate
 let initialState = {
     messages: [
         { id: 1, message: 'Blabla' },
@@ -15,7 +15,7 @@ let initialState = {
         { id: 4, name: 'Anna' }
     ]
 }
-
+//reducers для изменений, если хотим менять данные, для начала их нужно скопировать
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
@@ -34,7 +34,7 @@ const dialogsReducer = (state = initialState, action) => {
             return state
     }
 }
-
+//actioncreators 
 export const addMessageActionCreator = () => ({ type: ADD_MESSAGE })
 export const updateNewMessageTextActionCreator = (text) => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
 

@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from 'formik';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { compose } from 'redux';
 import * as yup from 'yup';
 import { login } from '../../redux/AuthReducer';
@@ -11,28 +11,12 @@ const LoginForm = (props) => {
         email: yup.string().email('Enter correct email').required('Email is required'),
         password: yup.string().typeError('Need string').required('Password is required')
     })
-    const signUp = (email) => new Promise((resolve, reject) => {
-        if (email === '1@1.ru') {
-            reject(new Error('Allo?'))
-        }
-        resolve(true)
-    })
+    const submit = (values) => { props.login(values.email, values.password, values.rememberMe, values.captcha) }
     return (
         <Formik
-            initialValues={{ email: '', password: '', rememberMe: false, }}
+            initialValues={{ email: '', password: '', rememberMe: false }}
             validateOnBlur
-            onSubmit={(values, actions) => {
-                signUp({ email: values.email })
-                    .then(() => {
-                        { props.login(values.email, values.password, values.rememberMe) }
-                    })
-                    .catch(errors => {
-                        actions.setFieldError('general', errors.message)
-                    })
-                    .finally(() => {
-                        actions.setSubmitting(false)
-                    })
-            }}
+            onSubmit={submit}
             validationSchema={validationSchema}
         >
             {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
@@ -65,6 +49,8 @@ const LoginForm = (props) => {
                             remember me
                         </span>
                     </div>
+                    {props.captchaUrl && <img src={props.captchaUrl} />}
+                    {props.captchaUrl && <Field name='captcha' type='text' />}
                     <button
                         disabled={!isValid && !dirty}
                         onClick={handleSubmit}
@@ -88,7 +74,12 @@ const LoginPage = (props) => {
         </div>
     )
 }
+const mapStateToProps = (state) => {
+    return ({
+        captchaUrl: state.auth.captchaUrl
+    })
+}
 
-export default compose(connect(null, { login }),
+export default compose(connect(mapStateToProps, { login }),
     ifAuthComplete
 )(LoginPage)

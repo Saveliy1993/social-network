@@ -5,17 +5,15 @@
 }
 .app-wrapper-header {
   grid-area: label;
-  background-color: rgb(131, 107, 107);
 }
 .app-wrapper-header {
   grid-area: navbar;
-  background-color: rgb(131, 107, 107);
 }
 .loginBlock {
   grid-area: login;
   padding: 15px;
   padding-right: 40px;
-  color: white;
+  color: rgb(8, 8, 8);
   font-size: 20px;
 }
 .loginBlock a {
@@ -23,16 +21,32 @@
   color: black;
 }
 .header img {
-  width: 50px;
+  width: 30px;
+  margin-left: 20px;
+  
+}
+.logotext{
+  margin-left: 10px;
+  font-size: 15px;
+
 }
 .item a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 20px;
-  padding-right: 30px;
+  padding: 3px;
+  margin: 20px;
+  border-radius: 5%;
+  text-transform: uppercase;
+}
+.item a:hover{
+  background-color: grey;
+}
+.item{
+  margin-top: 15px;
 }
 
 .item a.activeLink {
-  color: gold;
   font-size: 23px;
+  font-weight: bolder;
 }

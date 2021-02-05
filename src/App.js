@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
@@ -11,6 +11,7 @@ import { initializeApp } from './redux/AppReducer';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/reduxStore'
 import { Provider } from 'react-redux'
+//for fast load app in 1st bundlle
 const Music = React.lazy(() => import('./components/Music/Music'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
 const News = React.lazy(() => import('./components/News/News'));
@@ -18,10 +19,20 @@ const Friends = React.lazy(() => import('./components/Friends/Friends'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const LoginPage = React.lazy(() => import('./components/LoginPage/Login'));
 
-
+//classed comp3 for render all app
 class App extends React.Component {
+    //alerter errors in app
+    catchAllUnhandledErrors=(reason, promise)=>{
+        alert('Some error occured')
+        console.error(PromiseRejectionEvent)
+    }
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+    //delete error
+    componentWillUnmount(){
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
     render() {
         if (!this.props.initialized) {
@@ -33,21 +44,25 @@ class App extends React.Component {
                     <HeaderContainer />
                 </div >
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs'><DialogsContainer /></Route>
-                    <Route path='/profile/:userId?'><ProfileContainer /></Route>
-                    <React.Suspense fallback={<Preloader />}>
-                        <Route path='/music'><Music /></Route>
-                        <Route path='/news'><News /></Route>
-                        <Route path='/settings'><Settings /></Route>
-                        <Route path='/friends'><Friends /></Route>
-                        <Route path='/users'><UsersContainer /></Route>
-                        <Route path='/login'><LoginPage /></Route>
-                    </React.Suspense>
+                    <Switch>
+                        <Route path='/dialogs'><DialogsContainer /></Route>
+                        <Route path='/profile/:userId?'><ProfileContainer /></Route>
+                        {/* this components not load in first start app, they not popular*/}
+                        <React.Suspense fallback={<Preloader />}>
+                            <Route path='/music'><Music /></Route>
+                            <Route path='/news'><News /></Route>
+                            <Route path='/settings'><Settings /></Route>
+                            <Route path='/friends'><Friends /></Route>
+                            <Route path='/users'><UsersContainer /></Route>
+                            <Route path='/login'><LoginPage /></Route>
+                        </React.Suspense>
+                    </Switch>
                 </div>
             </div>
         )
     }
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -55,10 +70,12 @@ const mapStateToProps = (state) => {
     }
 }
 
+//for props and compose 2cont
 let AppContainer = compose(
     connect(mapStateToProps, { initializeApp })
         (App))
 
+//for test 1cont
 const MainApp = () => {
     return <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>

@@ -4,15 +4,15 @@
   grid-template-areas:
     "h h h"
     ". c .";
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 60px 1fr;
   grid-template-columns: 1fr 1200px 1fr;
   min-height: 100vh;
 }
 .app-wrapper-content {
   grid-area: c;
-  background-color: cornflowerblue;
+  background-color: rgb(255, 255, 255);
 }
 .app-wrapper-header{
   grid-area: h;
-  background-color: rgb(131, 107, 107);
+  background-color: rgb(240, 240, 240);
 }

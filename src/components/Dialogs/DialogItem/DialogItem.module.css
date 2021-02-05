@@ -1,18 +1,21 @@
-.user{
+.user {
     padding: 10px 0px 10px 40px;
-    grid-area: 'u';
+    grid-area: "u";
 }
-.item{
-    color: white;
+.item {
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 20px;
 }
-.activeLink{
-    color: rgb(24, 24, 23);
-    background-color: white;
-    border-radius: 30%;
+.item:hover {
+    background-color: rgb(128, 128, 128);
+    border-radius: 10%;
 }
-.user img{
+.activeLink {
+    font-weight: bolder;
+    font-size: 25px;
+}
+.user img {
     width: 30px;
     border-radius: 30%;
     margin: 40px 20px 0px 0px;
