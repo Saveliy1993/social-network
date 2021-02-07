@@ -18,5 +18,5 @@ const mapStateToProps = (state) => {
         login: state.auth.login
     }
 }
-
+//1st cont for connect and props
 export default connect(mapStateToProps, { logout })(HeaderContainer);

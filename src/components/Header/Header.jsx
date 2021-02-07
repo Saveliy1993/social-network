@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.png'
 
-
+// 3 section in header:
 const Header = (props) => {
     return (
         <header className={s.header}>
@@ -12,6 +12,7 @@ const Header = (props) => {
             </div>
             <div className={s.navbar}>
                 <div className={s.item}>
+                    {/* navbar in header */}
                     <NavLink to='/profile' activeClassName={s.activeLink}>Profile</NavLink>
                     <NavLink to='/dialogs' activeClassName={s.activeLink}>Messages</NavLink>
                     <NavLink to='/users' activeClassName={s.activeLink}>Users</NavLink>

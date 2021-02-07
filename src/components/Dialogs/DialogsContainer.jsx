@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-
+//connect and compose HOC
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 import { initializeApp } from './redux/AppReducer';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import store from './redux/reduxStore'
 import { Provider } from 'react-redux'
 //for fast load app in 1st bundlle
@@ -75,14 +75,15 @@ let AppContainer = compose(
     connect(mapStateToProps, { initializeApp })
         (App))
 
-//for test 1cont
+//for test 1cont. hashrouter for ghpages, next time use <BrowserRouter basename={process.env.PUBLIC_URL}. 
+//Provider добовляет в контекст store, что бы компоненты могли стать consumer
 const MainApp = () => {
-    return <BrowserRouter basename={process.env.PUBLIC_URL}>
+    return <HashRouter >
         <Provider store={store}>
             <React.StrictMode>
                 <AppContainer />
             </React.StrictMode>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 }
 export default MainApp

@@ -50,6 +50,7 @@ let mapStateToProps = (state) => {
     })
 }
 
+//withRouter это hoc который достаёт данные из URL
 export default compose(
     connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto,saveProfile }),
     withRouter,
