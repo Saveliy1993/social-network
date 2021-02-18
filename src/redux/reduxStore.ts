@@ -8,7 +8,7 @@ import thunkMiddleware from "redux-thunk";
 import appReducer from "./AppReducer";
 
 //комбайнит наши редьюсеры для обращения из компонент
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -17,10 +17,15 @@ let reducers = combineReducers({
     app: appReducer,
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+type RootReducerType = typeof rootReducer //(globalstate: AppStateType)=>AppStateType
+export type AppStateType = ReturnType<RootReducerType>
 
-//даёт возможность запрашивать store через консоль
-window.__store__ = store;
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+
+//@ts-ignore
+window.__store__ = store; //даёт возможность запрашивать store через консоль
+
 
 export default store;

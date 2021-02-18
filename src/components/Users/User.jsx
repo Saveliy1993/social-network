@@ -3,6 +3,7 @@ import React from 'react'
 import userPhoto from '../../assets/images/user.jpg'
 import { NavLink } from 'react-router-dom'
 import Paginator from '../common/Paginator/Paginator'
+import { UsersType } from '../../types/types'
 
 
 const User = ({ portionSize, totalItemsCount, pageSize, currentPage, onPageChanged, user, ...props }) => {
