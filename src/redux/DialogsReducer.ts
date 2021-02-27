@@ -1,5 +1,3 @@
-import { type } from "os";
-
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
@@ -21,7 +19,7 @@ let initialState = {
     ] as Array<{ id: number, name: string }>
 }
 //reducers для изменений, если хотим менять данные, для начала их нужно скопировать
-const dialogsReducer = (state = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let newMessage = state.newPostMessage
@@ -39,11 +37,12 @@ const dialogsReducer = (state = initialState, action: any) => {
             return state
     }
 }
+type ActionsType = AddMessageActionCreatorType | UpdateNewMessageTextActionCreatorType
 //создаём свой новый тип(НЕ СТРИНГ!), что бы не опечататься в буквах и фиксируем остальные значения
 type AddMessageActionCreatorType = { type: typeof ADD_MESSAGE }
 type UpdateNewMessageTextActionCreatorType = { type: typeof UPDATE_NEW_MESSAGE_TEXT, newText: string }
 //actioncreators 
 export const addMessageActionCreator = (): AddMessageActionCreatorType => ({ type: ADD_MESSAGE })
-export const updateNewMessageTextActionCreator = (text: string) => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
+export const updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionCreatorType => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
 
 export default dialogsReducer;

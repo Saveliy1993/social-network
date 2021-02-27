@@ -2,19 +2,22 @@ import styles from './Users.module.css'
 import React from 'react'
 import userPhoto from '../../assets/images/user.jpg'
 import { NavLink } from 'react-router-dom'
-import Paginator from '../common/Paginator/Paginator'
-import { UsersType } from '../../types/types'
+import { UserType } from '../../types/types'
 
-
-const User = ({ portionSize, totalItemsCount, pageSize, currentPage, onPageChanged, user, ...props }) => {
+type PropsType = {
+    user: any // type user???
+    followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+}
+const User: React.FC<PropsType> = ({ user, followingInProgress, follow, unfollow }) => {
     return (
         <div>
-            <Paginator totalItemsCount={totalItemsCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged} />
             <div >
                 <div>
                     {user.followed
-                        ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => { props.unfollow(user.id) }}>Unfollow</button>
-                        : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => { props.follow(user.id) }}>Follow</button>}
+                        ? <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => { unfollow(user.id) }}>Unfollow</button>
+                        : <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => { follow(user.id) }}>Follow</button>}
                 </div>
                 <div>
                     <div>

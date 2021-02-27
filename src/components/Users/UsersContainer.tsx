@@ -1,21 +1,20 @@
 import { connect } from 'react-redux'
 import { follow, unfollow, requestUsers } from "../../redux/UsersReducer"
-import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress, getPortionSize } from '../../redux/UsersSelectors'
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/UsersSelectors'
 import Users from './Users'
 import React from 'react'
 import Preloader from '../common/Preloader/Preloader'
 import { compose } from 'redux'
-import { UsersType } from '../../types/types'
+import { UserType } from '../../types/types'
 import { AppStateType } from '../../redux/reduxStore'
 
 type MapStatePropsType = {
-    users: Array<UsersType>
+    users: Array<UserType>
     pageSize: number
     totalItemsCount: number
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
-    portionSize: number
 }
 type MapDispatchPropsType = {
     follow: (userId: number) => void
@@ -45,7 +44,6 @@ class UsersContainer extends React.Component<PropsType> {
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     followingInProgress={this.props.followingInProgress}
-                    portionSize={this.props.portionSize}
                 />
             </div>
         )
@@ -60,7 +58,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
-        portionSize: getPortionSize(state),
     }
 }
 

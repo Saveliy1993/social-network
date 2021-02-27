@@ -1,7 +1,7 @@
 import Profile from './Profile';
 import React from 'react'
 import { connect } from 'react-redux';
-import { getUserProfile, getStatus, updateStatus, savePhoto,saveProfile } from '../../redux/ProfileReducer'
+import { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../redux/ProfileReducer'
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
@@ -52,7 +52,7 @@ let mapStateToProps = (state) => {
 
 //withRouter это hoc который достаёт данные из URL
 export default compose(
-    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto,saveProfile }),
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile }),
     withRouter,
 )(ProfileContainer)
 
