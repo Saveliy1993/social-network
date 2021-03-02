@@ -1,8 +1,6 @@
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+import { InferActionsTypes } from "./reduxStore";
 
-//фиксируем передаваемые значения
-export type InitialStateType = typeof initialState
+
 // our globalstate
 let initialState = {
     messages: [
@@ -18,17 +16,18 @@ let initialState = {
         { id: 4, name: 'Anna' }
     ] as Array<{ id: number, name: string }>
 }
+
 //reducers для изменений, если хотим менять данные, для начала их нужно скопировать
 const dialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case 'ADD_MESSAGE':
             let newMessage = state.newPostMessage
             return {
                 ...state,
                 newPostMessage: '',
                 messages: [...state.messages, { id: 4, message: newMessage }],
             }
-        case UPDATE_NEW_MESSAGE_TEXT:
+        case 'UPDATE_NEW_MESSAGE_TEXT':
             return {
                 ...state,
                 newPostMessage: action.newText
@@ -37,12 +36,17 @@ const dialogsReducer = (state = initialState, action: ActionsType) => {
             return state
     }
 }
-type ActionsType = AddMessageActionCreatorType | UpdateNewMessageTextActionCreatorType
-//создаём свой новый тип(НЕ СТРИНГ!), что бы не опечататься в буквах и фиксируем остальные значения
-type AddMessageActionCreatorType = { type: typeof ADD_MESSAGE }
-type UpdateNewMessageTextActionCreatorType = { type: typeof UPDATE_NEW_MESSAGE_TEXT, newText: string }
+
 //actioncreators 
-export const addMessageActionCreator = (): AddMessageActionCreatorType => ({ type: ADD_MESSAGE })
-export const updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionCreatorType => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text })
+export const actions = {
+    addMessageActionCreator: () => ({ type: 'ADD_MESSAGE' } as const),
+    updateNewMessageTextActionCreator: (text: string) => ({ type: 'UPDATE_NEW_MESSAGE_TEXT', newText: text } as const)
+}
+
+
+//types:
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>
+
 
 export default dialogsReducer;
