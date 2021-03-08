@@ -89,6 +89,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     })
 }
 
-export default compose(connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, { login }),
+export default compose<React.ComponentType>(connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, { login }),
     ifAuthComplete
-)(LoginPage)
+)(LoginPage) 

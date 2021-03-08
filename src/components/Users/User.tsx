@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { UserType } from '../../types/types'
 
 type PropsType = {
-    user: any // type user???
+    user: UserType
     followingInProgress: Array<number>
     follow: (userId: number) => void
     unfollow: (userId: number) => void

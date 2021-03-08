@@ -1,15 +1,15 @@
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+import Dialogs from './components/Dialogs/Dialogs';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 import { initializeApp } from './redux/AppReducer';
 import { HashRouter } from 'react-router-dom';
-import store from './redux/reduxStore'
+import store, { AppStateType } from './redux/reduxStore'
 import { Provider } from 'react-redux'
 //for fast load app in 1st bundlle
 const Music = React.lazy(() => import('./components/Music/Music'));
@@ -19,10 +19,15 @@ const Friends = React.lazy(() => import('./components/Friends/Friends'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const LoginPage = React.lazy(() => import('./components/LoginPage/Login'));
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
 //classed comp3 for render all app
-class App extends React.Component {
+class App extends Component<MapPropsType & DispatchPropsType> {
     //alerter errors in app
-    catchAllUnhandledErrors=(reason, promise)=>{
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
         alert('Some error occured')
         console.error(PromiseRejectionEvent)
     }
@@ -31,7 +36,7 @@ class App extends React.Component {
         window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
     //delete error
-    componentWillUnmount(){
+    componentWillUnmount() {
         window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
     render() {
@@ -45,7 +50,7 @@ class App extends React.Component {
                 </div >
                 <div className='app-wrapper-content'>
                     <Switch>
-                        <Route path='/dialogs'><DialogsContainer /></Route>
+                        <Route path='/dialogs'><Dialogs /></Route>
                         <Route path='/profile/:userId?'><ProfileContainer /></Route>
                         {/* this components not load in first start app, they not popular*/}
                         <React.Suspense fallback={<Preloader />}>
@@ -64,7 +69,7 @@ class App extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         initialized: state.app.initialized
     }
@@ -75,9 +80,9 @@ let AppContainer = compose(
     connect(mapStateToProps, { initializeApp })
         (App))
 
-//for test 1cont. hashrouter for ghpages, next time use <BrowserRouter basename={process.env.PUBLIC_URL}. 
+//for test 1cont. hashrouter for ghpages, next time use <BrowserRouter basename={process.env.PUBLIC_URL}.
 //Provider добовляет в контекст store, что бы компоненты могли стать consumer
-const MainApp = () => {
+const MainApp: React.FC = () => {
     return <HashRouter >
         <Provider store={store}>
             <React.StrictMode>

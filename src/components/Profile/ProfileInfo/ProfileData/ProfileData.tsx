@@ -1,6 +1,10 @@
 import s from './ProfileData.module.css'
 
-const ProfileData = (props) => {
+type ProfileDataType={
+
+}
+
+const ProfileData: React.FC<ProfileDataType> = (props) => {
     return <div>
         {props.isOwner && <button onClick={props.goEditMode}>edit</button>}
         <h4>

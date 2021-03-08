@@ -6,13 +6,12 @@ import { ThunkAction } from 'redux-thunk';
 
 let initialState = {
     posts: [
-        { id: 1, message: 'How are u?', likesCount: 15 },
-        { id: 2, message: 'lorem', likesCount: 25 },
-        { id: 3, message: 'How da u?', likesCount: 5 },
-        { id: 4, message: 'Hoe u?', likesCount: 1 },
-        { id: 5, message: 'I love React', likesCount: 111 }
+        { id: 1, text: 'How are u?', likesCount: 15 },
+        { id: 2, text: 'lorem', likesCount: 25 },
+        { id: 3, text: 'How da u?', likesCount: 5 },
+        { id: 4, text: 'Hoe u?', likesCount: 1 },
+        { id: 5, text: 'I love React', likesCount: 111 }
     ] as Array<PostType>,
-    newPostText: '' as string,
     profile: null as ProfileType | null,
     status: '' as string | null,
 }
@@ -20,20 +19,9 @@ let initialState = {
 const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'ADD_POST':
-            let newPost = {
-                id: 6,
-                message: state.newPostText,
-                likesCount: 0
-            }
             return {
                 ...state,
-                newPostText: '',
-                posts: [...state.posts, newPost]
-            }
-        case 'UPDATE_NEW_POST_TEXT':
-            return {
-                ...state,
-                newPostText: action.newText
+                posts: [...state.posts, { id: 6, text: action.postText, likesCount: 0 }]
             }
         case 'SET_USER_PROFILE': {
             return { ...state, profile: action.profile }
@@ -55,8 +43,7 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
 
 //ActionCreators:
 export const actions = {
-    addPostActionCreator: () => ({ type: 'ADD_POST' } as const),
-    updateNewPostTextActionCreator: (text: string) => ({ type: 'UPDATE_NEW_POST_TEXT', newText: text } as const),
+    addPost: (postText: string) => ({ type: 'ADD_POST', postText } as const),
     setUserProfile: (profile: ProfileType) => ({ type: 'SET_USER_PROFILE', profile } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
     savePhotoSuccess: (photos: PhotosType) => ({ type: 'SAVE_PHOTO_SUCCESS', photos } as const),

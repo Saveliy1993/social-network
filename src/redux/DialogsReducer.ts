@@ -8,7 +8,6 @@ let initialState = {
         { id: 2, message: 'How are you?' },
         { id: 3, message: 'Hello I am fine' }
     ] as Array<{ id: number, message: string }>,
-    newPostMessage: '' as string,
     dialogs: [
         { id: 1, name: 'Roma' },
         { id: 2, name: 'Makar' },
@@ -20,17 +19,11 @@ let initialState = {
 //reducers для изменений, если хотим менять данные, для начала их нужно скопировать
 const dialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
-        case 'ADD_MESSAGE':
-            let newMessage = state.newPostMessage
+        case 'SEND_MESSAGE':
+            let body = action.messageText
             return {
                 ...state,
-                newPostMessage: '',
-                messages: [...state.messages, { id: 4, message: newMessage }],
-            }
-        case 'UPDATE_NEW_MESSAGE_TEXT':
-            return {
-                ...state,
-                newPostMessage: action.newText
+                messages: [...state.messages, { id: 4, message: body }]
             }
         default:
             return state
@@ -39,8 +32,7 @@ const dialogsReducer = (state = initialState, action: ActionsType) => {
 
 //actioncreators 
 export const actions = {
-    addMessageActionCreator: () => ({ type: 'ADD_MESSAGE' } as const),
-    updateNewMessageTextActionCreator: (text: string) => ({ type: 'UPDATE_NEW_MESSAGE_TEXT', newText: text } as const)
+    addMessage: (messageText: string) => ({ type: 'SEND_MESSAGE', messageText } as const)
 }
 
 

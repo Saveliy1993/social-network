@@ -1,11 +1,16 @@
 import s from './Post.module.css'
 
-const Post = (props) => {
+type PropsType={
+    text: string
+    likesCount: number
+}
+
+const Post: React.FC<PropsType> = (props) => {
     return (
         <div className={s.content}>
             <div>
                 <img src="https://cs16planet.ru/steam-avatars/images/avatar2700.jpg" />
-                {props.message}
+                {props.text}
                 <div>like  {props.likesCount}</div>
             </div>
         </div>
