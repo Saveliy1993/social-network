@@ -1,28 +1,31 @@
+import { ContactsType, ProfileType } from '../../../../types/types'
 import s from './ProfileData.module.css'
 
-type ProfileDataType={
-
+type PropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    goEditMode: () => void
 }
 
-const ProfileData: React.FC<ProfileDataType> = (props) => {
+const ProfileData: React.FC<PropsType> = ({ goEditMode, isOwner, profile }) => {
     return <div>
-        {props.isOwner && <button onClick={props.goEditMode}>edit</button>}
+        {isOwner && <button onClick={goEditMode}>edit</button>}
         <h4>
-            {props.profile.fullName}
+            {profile.fullName}
         </h4>
         <div className={s.item}>
-            About me: {props.profile.aboutMe}
+            About me: {profile.aboutMe}
         </div>
         <div className={s.item}>
-            Looking for a job: {props.profile.lookingForAJob ? 'yes' : 'no'}
+            Looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}
         </div>
-        {props.profile.lookingForAJob &&
+        {profile.lookingForAJob &&
             <div className={s.item}>
-                My professional skills: {props.profile.lookingForAJobDescription}
+                My professional skills: {profile.lookingForAJobDescription}
             </div>}
         <div className={s.item}>
-            Contacts: {Object.keys(props.profile.contacts).map(key => {
-            return <Contact key={key} contactTitile={key} contactValue={props.profile.contacts[key]} />
+            Contacts: {Object.keys(profile.contacts).map(key => {
+            return <Contact key={key} contactTitile={key} contactValue={profile.contacts[key as keyof ContactsType]} />
         })}
         </div>
         <div className={s.item}>
@@ -30,7 +33,12 @@ const ProfileData: React.FC<ProfileDataType> = (props) => {
         </div>
     </div>
 }
-const Contact = ({ contactTitile, contactValue }) => {
+
+type ContactType = {
+    contactTitile: string
+    contactValue: string
+}
+const Contact: React.FC<ContactType> = ({ contactTitile, contactValue }) => {
     return <div className={s.contact}>{contactTitile} : {contactValue}</div>
 }
 

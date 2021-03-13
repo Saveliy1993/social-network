@@ -1,5 +1,5 @@
 
-const News=(props)=>{
+const News=()=>{
     return(
         <div>News</div>
     )

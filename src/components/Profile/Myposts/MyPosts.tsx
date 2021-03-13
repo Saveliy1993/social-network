@@ -26,10 +26,11 @@ const PostsForm: React.FC<PropsType> = (props) => {
             validationSchema={validationSchema}
             onSubmit={(
                 values: FormValues,
-                setSubmitting: any
+                { setSubmitting, resetForm }: any
             ) => {
                 setSubmitting(true)
                 dispatch(actions.addPost(values.postText))
+                resetForm()
             }}>
             <Form>
                 <Field name='postText' type='textarea' className={s.window} placeholder='Enter your post' />

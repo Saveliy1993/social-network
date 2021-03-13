@@ -1,40 +1,56 @@
 import { Field, Formik, Form } from "formik"
+import { ProfileType } from "../../../../types/types";
 
-const ProfileDataForm = (props, {setSubmitting}) => {
+//!!!need refactoring!!!!!!!
+
+type PropsType = {
+    saveProfile: (profile: ProfileType) => void
+    profile: ProfileType
+}
+
+const ProfileDataForm: React.FC<any> = ({ setEditMode, saveProfile, profile }) => {
     const initialValues = {
-        aboutMe: props.profile.aboutMe, lookingForAJob: props.profile.lookingForAJob,
-        lookingForAJobDescription: props.profile.lookingForAJobDescription, fullName: props.profile.fullName, contacts: props.profile.contacts
+        aboutMe: profile.aboutMe,
+        lookingForAJob: profile.lookingForAJob,
+        lookingForAJobDescription: profile.lookingForAJobDescription,
+        fullName: profile.fullName,
+        contacts: profile.contacts
     };
-    const submit = (values) => {  props.saveProfile(values).then(() => props.setEditMode(false))(setSubmitting(false)) }
-    return <Formik
-        initialValues={initialValues}
-        onSubmit={submit}    >
-        <Form>
-            <div>
-                Full name:
+    const submit = (values: any, {setSubmitting}:any) => {
+        saveProfile(values).then(() =>
+            setEditMode(false))(setSubmitting(false))
+    }
+    return (
+        <Formik
+            initialValues={initialValues}
+            onSubmit={submit}    >
+            <Form>
+                <div>
+                    Full name:
                 <Field name='fullName' />
-            </div>
-            <div>
-                About me:
+                </div>
+                <div>
+                    About me:
                 <Field name='aboutMe' />
-            </div>
-            <div>
-                Looking for a job:
+                </div>
+                <div>
+                    Looking for a job:
                 <Field type='checkbox' name='lookingForAJob' />
-            </div>
-            <div>
-                My professional skills:
+                </div>
+                <div>
+                    My professional skills:
                 <Field name='lookingForAJobDescription' />
-            </div>
-            <div>
-                Contacts:
-                {Object.keys(props.profile.contacts).map(key => {
-                return <div key={key}> {key}:  <Field name={`contacts.${key}`} placeholder={`https://${key}.com`} /></div>
-            })}
-            </div>
-            <button type="submit" >Save</button>
-            <button onClick={() => props.setEditMode(false)}>Cancel</button>
-        </Form>
-    </Formik>
+                </div>
+                <div>
+                    Contacts:
+                {Object.keys(profile.contacts).map(key => {
+                    return <div key={key}> {key}:  <Field name={`contacts.${key}`} placeholder={`https://${key}.com`} /></div>
+                })}
+                </div>
+                <button type="submit" >Save</button>
+                <button onClick={() => setEditMode(false)}>Cancel</button>
+            </Form>
+        </Formik>
+    )
 }
 export default ProfileDataForm

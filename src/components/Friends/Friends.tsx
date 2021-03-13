@@ -1,4 +1,4 @@
-const Friends=(props)=>{
+const Friends=()=>{
     return(
         <div>
             Friends

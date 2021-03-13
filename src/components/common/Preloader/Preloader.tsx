@@ -1,6 +1,6 @@
 import preloader from '../../../assets/images/2.gif'
 
-let Preloader = (props) => {
+let Preloader = () => {
     return (
         <img src={preloader} />
     )

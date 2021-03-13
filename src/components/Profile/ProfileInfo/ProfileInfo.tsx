@@ -2,18 +2,28 @@ import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks'
 import userPhoto from '../../../assets/images/user.jpg'
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileData/ProfileDataForm';
 import ProfileData from './ProfileData/ProfileData'
+import { ProfileType } from '../../../types/types';
 
-const ProfileInfo = (props) => {
+type PropsType = {
+    savePhoto: (file: File) => void
+    isOwner: boolean
+    profile: ProfileType | null
+    updateStatus: (status: string) => void
+    status: string 
+    saveProfile: (profile: ProfileType) => void
+}
+
+const ProfileInfo: React.FC<PropsType> = ({ profile, savePhoto, updateStatus, status, isOwner, saveProfile }) => {
     let [editMode, setEditMode] = useState(false)
-    if (!props.profile) {
+    if (!profile) {
         return <Preloader />
     }
-    const onMainPhotoSelected = (event) => {
-        if (event.target.files.length) {
-            props.savePhoto(event.target.files[0])
+    const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files?.length) {
+            savePhoto(event.target.files[0])
         }
     }
     return (
@@ -21,15 +31,15 @@ const ProfileInfo = (props) => {
             {/*<img src='https://www.planetware.com/photos-large/VIE/vietnam-danang-beach.jpg'></img>*/}
             <div className={s.content}>
                 <div>
-                    <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status} />
+                    <ProfileStatusWithHooks updateStatus={updateStatus} status={status} />
                 </div>
                 <div className={s.item}>
-                    <img src={props.profile.photos.large != null ? props.profile.photos.large : userPhoto} />
-                    {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
+                    <img src={profile.photos.large != null ? profile.photos.large : userPhoto} />
+                    {isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
                 </div>
                 {editMode
-                    ? <ProfileDataForm {...props}  setEditMode={setEditMode} />
-                    : <ProfileData {...props} goEditMode={()=>setEditMode(true)}/>}
+                    ? <ProfileDataForm saveProfile={saveProfile} profile={profile} setEditMode={setEditMode} />
+                    : <ProfileData isOwner={isOwner} profile={profile} goEditMode={() => setEditMode(true)} />}
             </div>
         </div>
     )
