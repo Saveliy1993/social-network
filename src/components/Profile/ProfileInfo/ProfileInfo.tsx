@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileData/ProfileDataForm';
 import ProfileData from './ProfileData/ProfileData'
 import { ProfileType } from '../../../types/types';
+import { Button } from '@material-ui/core';
 
 type PropsType = {
     savePhoto: (file: File) => void
@@ -35,7 +36,9 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, savePhoto, updateStatus, st
                 </div>
                 <div className={s.item}>
                     <img src={profile.photos.large != null ? profile.photos.large : userPhoto} />
-                    {isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
+                    {isOwner && 
+                        <Button variant='contained'component='span' onChange={onMainPhotoSelected}>Change photo</Button>
+                    }
                 </div>
                 {editMode
                     ? <ProfileDataForm saveProfile={saveProfile} profile={profile} setEditMode={setEditMode} />

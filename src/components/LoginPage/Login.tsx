@@ -6,6 +6,7 @@ import { login } from '../../redux/AuthReducer';
 import { ifAuthComplete } from '../hoc/ifAuthComplete';
 import React from 'react'
 import { AppStateType } from '../../redux/reduxStore';
+import { Button, Checkbox, TextField } from '@material-ui/core';
 
 type LoginType = MapStatePropsType & MapDispatchPropsType
 type ValuesType = { email: string, password: string, rememberMe: boolean, captcha: string }
@@ -27,8 +28,8 @@ const LoginForm: React.FC<LoginType> = ({ login, captchaUrl }) => {
             {({ values, errors, touched, handleChange, handleBlur, isValid,  dirty }) => (
                 <Form>
                     <p>
-                        <label htmlFor={"email"}>Email:</label><br />
-                        <Field
+                        <TextField
+                            label='Email:'
                             type={"text"}
                             name={'email'}
                             onChange={handleChange}
@@ -38,8 +39,8 @@ const LoginForm: React.FC<LoginType> = ({ login, captchaUrl }) => {
                     </p>
                     {touched.email && errors.email && <p> {errors.email}</p>}
                     <p>
-                        <label htmlFor={"password"}>Password:</label><br />
-                        <Field
+                        <TextField
+                            label='Password:'
                             type={'password'}
                             name={'password'}
                             onChange={handleChange}
@@ -49,17 +50,19 @@ const LoginForm: React.FC<LoginType> = ({ login, captchaUrl }) => {
                     </p>
                     {touched.password && errors.password && <p> {errors.password}</p>}
                     <div>
-                        <Field name='rememberMe' type="checkbox" />
+                        <Checkbox name='rememberMe' color='primary'/>
                         <span>
                             remember me
                         </span>
                     </div>
                     {captchaUrl && <img src={captchaUrl} />}
-                    {captchaUrl && <Field name='captcha' type='text' />}
-                    <button
+                    {captchaUrl && <div> <TextField name='captcha' type='text' /></div>}
+                    <Button
                         disabled={!isValid && !dirty}
                         type={'submit'}
-                    >Enter</button>
+                        color='primary'
+                        size="large"
+                    >Enter</Button>
 
                 </Form>
             )}

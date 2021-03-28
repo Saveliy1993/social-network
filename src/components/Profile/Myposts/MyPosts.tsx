@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../redux/ProfileReducer';
 import { AppStateType } from '../../../redux/reduxStore';
 import { PostType } from '../../../types/types';
+import { Button, TextField } from '@material-ui/core';
 
 type PropsType = {}
 type FormValues = {
@@ -33,9 +34,9 @@ const PostsForm: React.FC<PropsType> = (props) => {
                 resetForm()
             }}>
             <Form>
-                <Field name='postText' type='textarea' className={s.window} placeholder='Enter your post' />
+                <TextField label='New Post:'name='postText' type='textarea' className={s.window} placeholder='Whats new?' />
                 <div className={s.button}>
-                    <button type='submit'>Send</button>
+                    <Button variant="contained" type='submit'>Send</Button>
                 </div>
             </Form>
         </Formik>
@@ -50,7 +51,7 @@ const MyPosts: React.FC<PropsType> = () => {
     return (
         <div className={s.content}>
             <h4>
-                New post:
+                All posts:
             </h4>
             <div>
                 <PostsForm />

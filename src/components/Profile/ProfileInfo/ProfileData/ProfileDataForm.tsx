@@ -1,3 +1,4 @@
+import { Button, Checkbox, TextField } from "@material-ui/core";
 import { Field, Formik, Form } from "formik"
 import { ProfileType } from "../../../../types/types";
 
@@ -26,29 +27,28 @@ const ProfileDataForm: React.FC<any> = ({ setEditMode, saveProfile, profile }) =
             onSubmit={submit}    >
             <Form>
                 <div>
-                    Full name:
-                <Field name='fullName' />
+                    <TextField name='fullName'id="outlined-basic" label="Full name:" variant="outlined" size='small'/>                
                 </div>
                 <div>
-                    About me:
-                <Field name='aboutMe' />
+                    <TextField name='aboutMe'id="outlined-basic" label="About me:" variant="outlined" size='small'/>                
                 </div>
                 <div>
                     Looking for a job:
-                <Field type='checkbox' name='lookingForAJob' />
+                    <Checkbox color='primary' name='lookingForAJob' />
                 </div>
                 <div>
-                    My professional skills:
-                <Field name='lookingForAJobDescription' />
+                    <TextField name='lookingForAJobDescription'id="outlined-basic" label="My professional skills:" variant="outlined" size='small'/>                
                 </div>
                 <div>
                     Contacts:
                 {Object.keys(profile.contacts).map(key => {
-                    return <div key={key}> {key}:  <Field name={`contacts.${key}`} placeholder={`https://${key}.com`} /></div>
+                    return <div key={key}>   
+                                <TextField name={`contacts.${key}`}id="outlined-basic" placeholder={`https://${key}.com`} label={key} variant="outlined" size='small'/>        
+                            </div>        
                 })}
                 </div>
-                <button type="submit" >Save</button>
-                <button onClick={() => setEditMode(false)}>Cancel</button>
+                <Button variant="contained" type="submit" >Save</Button>
+                <Button variant="contained" color='secondary' onClick={() => setEditMode(false)}>Cancel</Button>
             </Form>
         </Formik>
     )

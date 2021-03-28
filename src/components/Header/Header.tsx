@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.png'
+import { Button } from '@material-ui/core'
 
 type PropsType = {
     isAuth: boolean
@@ -34,7 +35,7 @@ const Header: React.FC<PropsType> = (props) => {
                                     </NavLink>*/}
                 {props.isAuth
                     ? <div>{props.login}
-                        <button onClick={props.logout}> Log out </button>
+                        <Button onClick={props.logout}  variant="contained" size="small"> Log out </Button>
                     </div>
                     : <NavLink to='/login'>Login</NavLink>
                 }
